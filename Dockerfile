@@ -4,6 +4,6 @@ COPY go.mod go.sum ./
 RUN go mod download
 COPY *.go ./
 COPY tracker.db ./
-RUN go build -o /app/parcel-tracker .
-CMD ["/app/parcel-tracker"]
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /parcel-tracker
+CMD ["/parcel-tracker"]
 
