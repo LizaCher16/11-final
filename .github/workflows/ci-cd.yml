@@ -53,5 +53,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/parcel-tracker:latest
-            ${{ secrets.DOCKER_USERNAME }}/parcel-tracker:${{ github.ref_name }}
+          ${{ secrets.DOCKER_USERNAME }}/parcel-tracker:latest
+          ${{ secrets.DOCKER_USERNAME }}/parcel-tracker:${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || github.ref_name }}
