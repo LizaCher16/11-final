@@ -1,9 +1,13 @@
-FROM golang:1.22.0
+FROM golang:1.22-alpine
+
 WORKDIR /app
+
 COPY go.mod go.sum ./
 RUN go mod download
+
 COPY *.go ./
 COPY tracker.db ./
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /parcel-tracker
-CMD ["/parcel-tracker"]
 
+RUN go build -o /app/parcel-tracker .
+
+CMD ["/app/parcel-tracker"]
